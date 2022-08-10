@@ -28,7 +28,8 @@ class EarningCalcApp(MDApp):
 
         return Builder.load_file("earningcalc.kv")
 
-    now = date.today()
+    current_date = date.today()
+    now = current_date.strftime("%Y-%m-%d")
     user_email = ObjectProperty()
     sales_tax = NumericProperty()
     shop_percent = NumericProperty()
@@ -45,9 +46,9 @@ class EarningCalcApp(MDApp):
         self.root.ids.sales_tax_input.text = ""
         self.root.ids.shop_percent_input.text = ""
 
-    user_info = JsonStore("user_settings.json")
-    expenses_data = JsonStore("expense_data.json")
-    sale_info = JsonStore("sale_info.json")
+    user_info = JsonStore("ec_app_data/user_settings.json")
+    expenses_data = JsonStore(f"ec_app_data/{now}.expense_data.json")
+    sale_info = JsonStore(f"ec_app_data/{now}.sale_info.json")
 
     def save_user_info(self):
         self.user_info.put(
