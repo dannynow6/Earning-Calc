@@ -1,0 +1,5 @@
+Need to create a way for user to view all expenses added or maybe choose from list of saved expenses to add to current sale/report info. 
+- Then create a way for user to update-saved-expenses so they can delete some, add new, etc. Maybe include this in the User Settings section for handling all stored/saved data. 
+- Could then rewrite the Add Expenses screen/section and make it different. Have a select expense from saved list option, add expense option, add to current sale, ....
+
+- Don't create list for expenses per tattoo/rather focus on weekly and monthly reports. Just get basic info on expense costs, earnings, and calculate out basic info from that. 

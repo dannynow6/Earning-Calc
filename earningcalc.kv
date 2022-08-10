@@ -1,0 +1,413 @@
+#:kivy 2.1.0
+# File name: earningcalc.kv 
+
+#:import toast kivymd.toast.toast 
+
+<BackgroundColor@Widget>:
+    background_color: (0.06, 0.1, 0.15, 1)
+    canvas.before:
+        Color:
+            rgba: root.background_color 
+        Rectangle:
+            pos: self.pos
+            size: self.size 
+
+<RobotoButton@Button+BackgroundColor>:
+    background_color: (0.9, 0.9, 0.9, 0.8)
+    font_name: 'Roboto'
+    font_size: 20
+    markup: True 
+    bold: True 
+    color: (0.03, 0.63, 0.93, 1)
+
+<UserTextInput@TextInput>:
+    hint_text_color: (0, 0, 0, 0.8)
+    multiline: False 
+    font_name: 'Roboto'
+    halign: 'center'
+    font_size: 20
+    color: (0, 0, 0, 1)
+    padding: [10, 0.5 * (self.height - self.line_height)]
+
+<SettingsLabel@Label+BackgroundColor>:
+    background_color: (0.88, 0.88, 0.88, 1)
+    markup: True 
+    bold: True 
+    padding: [10, 0.5 * (self.height - self.line_height)]
+    font_name: 'Roboto'
+    font_size: 20 
+    color: (0, 0, 0, 1)
+
+<EcLabel@Label+BackgroundColor>:
+    background_color: (1, 1, 1, 1)
+    font_name: 'Roboto'
+    font_size: 20
+    markup: True 
+
+ScreenManager:
+    Screen:
+        name: 'ec_main'
+
+        GridLayout: 
+            rows: 3 
+            spacing: 2
+
+            AnchorLayout:
+                anchor_x: 'right'
+                anchor_y: 'top' 
+
+                BoxLayout:
+                    orientation:'horizontal'
+                    padding: 10
+                    spacing: 2
+                    size_hint: (None, None)
+                    width: root.width 
+                    height: root.height * 0.5
+                
+                    Label: 
+                        markup: True 
+                        text: '[sup][color=446aad][b]Earning [/b][/color][/sup][i][b][color=663e4d]Calculator[/color][/b][/i][sub][i][color=446aad][b] & Reporting App[/b][/color][/i][/sub]'
+                        font_name: 'Roboto'
+                        font_size: 68
+                        size_hint: (1, None) 
+                        padding: (5, 25)
+    
+            BoxLayout:
+                orientation:'horizontal' 
+                height: 90
+                spacing: 2
+                padding: 4
+                size_hint: (1, None) 
+
+                RobotoButton: 
+                    text: 'Settings'
+                    on_press: root.current = 'ec_settings'
+
+                RobotoButton: 
+                    text: 'Add Expense' 
+                    on_press: root.current = "ec_add_expense" 
+
+                RobotoButton: 
+                    text: 'Expenses' 
+                    on_press: root.current = 'ec_expenses' 
+                   
+                RobotoButton: 
+                    text: 'Sale Info' 
+                    on_press: root.current = 'ec_saleinfo'
+                    
+                RobotoButton: 
+                    text: 'Calc & Report'
+                    on_press: root.current = 'ec_calc'
+                    
+            BoxLayout: 
+                orientation: 'horizontal' 
+                height: 50
+                padding: 5
+                spacing: 2
+                size_hint: (1, None) 
+
+                EcLabel:
+                    text: '[color=3e4d66]~ For [b]Tattoo[/b] Artists ~[/color]'
+                    
+                EcLabel: 
+                    text: '[sup][color=446aad]Earning [/color][/sup][i][b][color=663e4d]Calculator[/color][/b][/i][sub][i][color=446aad] & Reporting App[/color][/i][/sub]' 
+                    
+    Screen:
+        name: 'ec_settings'
+        user_email: email_input 
+        sales_tax: sales_tax_input
+        shop_percent: shop_percent_input
+
+        BoxLayout:
+            orientation:'vertical'
+            padding: 4
+            spacing: 2
+
+            GridLayout:
+                rows: 4
+                cols: 2
+                padding: 2
+                spacing: 2
+
+                SettingsLabel: 
+                    text: 'Enter Your Email Address:'
+                    
+                UserTextInput:
+                    id: email_input 
+                    hint_text:'somebody@example.com' 
+                    #on_text_validate: app.save_email() 
+
+                SettingsLabel: 
+                    text: 'Local Sales Tax:'
+                    
+                UserTextInput:
+                    id: sales_tax_input  
+                    hint_text: "e.g., enter '0.07' or '7' if sales tax 7%"
+                    #on_text_validate: app.save_sales_tax()
+                
+                SettingsLabel:
+                    text:'Enter percentage owed to shop:'
+                    
+                UserTextInput:
+                    id: shop_percent_input 
+                    hint_text: "e.g., enter '0.4' or '40' if you owe shop 40%"
+                    #on_text_validate: app.save_shop_cut()
+
+                RobotoButton:
+                    text: "Save & Exit"
+                    on_press: root.current = 'ec_main'
+                    on_press: app.save_user_info()
+                    
+                RobotoButton:
+                    text: "Clear User Settings"
+                    height: root.height * 0.25
+                    on_press: app.clear_settings()  
+                    
+            BoxLayout: 
+                orientation: 'horizontal' 
+                height: 50
+                padding: 5
+                spacing: 2
+                size_hint: (1, None) 
+
+                EcLabel:
+                    text: '[color=3e4d66]~ For [b]Tattoo[/b] Artists ~[/color]'
+                    
+                EcLabel: 
+                    text: '[sup][color=446aad]Earning [/color][/sup][i][b][color=663e4d]Calculator[/color][/b][/i][sub][i][color=446aad] & Reporting App[/color][/i][/sub]'
+    
+    Screen:
+        name: "ec_add_expense"
+
+        BoxLayout:
+            orientation:'vertical' 
+            padding: 4
+            spacing: 2 
+
+            GridLayout:
+                rows: 4
+                cols: 2
+                padding: 4
+                spacing: 2
+                expense_name: exp_name 
+                expense_cost: exp_cost 
+                expense_quantity: exp_quantity 
+
+                SettingsLabel:
+                    text: "Expense Name"
+                
+                UserTextInput:
+                    id: exp_name 
+                    hint_text: "#5 Cartridge"
+                
+                SettingsLabel:
+                    text: "Expense Purchase Cost"
+                
+                UserTextInput:
+                    id: exp_cost
+                    hint_text: "Cost of box, case, etc."
+                
+                SettingsLabel:
+                    text: "Quantity purchased"
+                
+                UserTextInput:
+                    id: exp_quantity
+                    hint_text: "units in box, case, etc."
+                
+                RobotoButton:
+                    text: "Exit"
+                    on_press: root.current = "ec_main"
+                
+                RobotoButton:
+                    text: "Save Expense Info" 
+                    on_press: app.exp_save() 
+
+            BoxLayout: 
+                orientation: 'horizontal' 
+                height: 50
+                padding: 5
+                size_hint: (1, None) 
+                spacing: 2
+
+                EcLabel:
+                    text: '[color=3e4d66]~ For [b]Tattoo[/b] Artists ~[/color]'
+                    
+                EcLabel: 
+                    text: '[sup][color=446aad]Earning [/color][/sup][i][b][color=663e4d]Calculator[/color][/b][/i][sub][i][color=446aad] & Reporting App[/color][/i][/sub]'
+
+    Screen:
+        name: 'ec_expenses'
+
+        BoxLayout:
+            orientation:'vertical' 
+            padding: 4
+            spacing: 2
+
+            GridLayout:
+                rows: 4
+                cols: 2
+                padding: 2
+                spacing: 2
+        #This should show lsit of expenses that can be included with current sale; 
+        #Give user option to input quantity for given sale used of each, then calcluate total 
+                SettingsLabel:
+                    text: 'Current Sale Expenses'
+                    
+                MDRaisedButton:
+                    id: exp_menu
+                    text: "Select Expenses"
+                    pos_hint: {"center_x": 0.75, "center_y": 0.75}
+                    
+                    
+
+                MDRaisedButton:
+                    text: 'Check Item'
+                    #on_release: toast(dropdown_item.current_item) 
+                    
+                UserTextInput:
+                    id: expense_cost 
+                    hint_text:'1.21'
+                
+                SettingsLabel:
+                    text: 'Quantity Used: '
+                    
+                UserTextInput:
+                    id: expense_quantity
+                    hint_text: '4'
+                
+                RobotoButton:
+                    id: _expense_exit
+                    text: "Save & Exit"
+                    on_press: root.current = "ec_main"
+                
+                RobotoButton:
+                    id: _add_expense
+                    text: "Add Expense to Current Sale" #Clear on save/add expense; maybe pop-up informing user of expense saved and info
+                    
+            BoxLayout: 
+                orientation: 'horizontal' 
+                height: 50
+                padding: 5
+                spacing: 2
+                size_hint_y: None 
+
+                EcLabel:
+                    text: '[color=3e4d66]~ For [b]Tattoo[/b] Artists ~[/color]'
+                    
+                EcLabel: 
+                    text: '[sup][color=446aad]Earning [/color][/sup][i][b][color=663e4d]Calculator[/color][/b][/i][sub][i][color=446aad] & Reporting App[/color][/i][/sub]' 
+
+    Screen:
+        name: "ec_saleinfo" 
+
+        BoxLayout:
+            orientation:'vertical' 
+            padding: 4
+            spacing: 2
+
+            GridLayout: 
+                rows: 4
+                cols: 2
+                padding: 2
+                spacing: 2
+
+                SettingsLabel:
+                    text: "Customer Name: "
+                
+                UserTextInput:
+                    id: sale_name 
+                    hint_text:'John Doe'
+                
+                SettingsLabel:
+                    text: "Amount charged: $"
+                
+                UserTextInput: 
+                    id: amt_charged
+                    hint_text: '425.00'
+                
+                SettingsLabel:
+                    text: 'Enter Deposit Amount: $'
+                
+                UserTextInput:
+                    id: amt_deposit 
+                    hint_text:'75'
+                
+                RobotoButton:
+                    text: "Save & Exit"
+                    on_press: root.current = "ec_main"
+                    
+                RobotoButton:
+                    text: "Reset Sale Info"
+                    
+            BoxLayout: 
+                orientation: 'horizontal' 
+                height: 50
+                padding: 5
+                size_hint: (1, None) 
+                spacing: 2
+
+                EcLabel:
+                    text: '[color=3e4d66]~ For [b]Tattoo[/b] Artists ~[/color]'
+                    
+                EcLabel: 
+                    text: '[sup][color=446aad]Earning [/color][/sup][i][b][color=663e4d]Calculator[/color][/b][/i][sub][i][color=446aad] & Reporting App[/color][/i][/sub]' 
+                    
+    Screen:
+        name: "ec_calc"
+
+        BoxLayout:
+            orientation: "vertical" 
+            padding: 4
+            spacing: 2
+        
+            GridLayout:
+                rows: 5
+                cols: 2
+                padding: 2
+                spacing: 2
+
+                SettingsLabel:
+                    text: "Sale Amount = +$"       
+
+                SettingsLabel:
+                    text: "Deposit Amount = +$" 
+
+                SettingsLabel:
+                    text: 'Total Cost of Expenses = -$'
+
+                SettingsLabel: 
+                    text: "Estimated Sales Tax Owed = -$"
+                
+                SettingsLabel:
+                    text: "Amount Owed to Shop = -$"
+                
+                SettingsLabel:
+                    text: "Total Expenses & Costs = -$"
+                
+                SettingsLabel:
+                    text: "Total of Sale + Deposit Received = +$"
+                
+                SettingsLabel:
+                    text: "Total Earnings from Sale = +$"
+                
+                RobotoButton:
+                    text: "Save & Exit"
+                    on_press: root.current = "ec_main" 
+                    
+                RobotoButton:
+                    text: "Generate Report"
+                    
+            BoxLayout: 
+                orientation: 'horizontal' 
+                height: 50
+                padding: 5
+                size_hint: (1, None) 
+                spacing: 2
+
+                EcLabel:
+                    text: '[color=3e4d66]~ For [b]Tattoo[/b] Artists ~[/color]'
+                    
+                EcLabel: 
+                    text: '[sup][color=446aad]Earning [/color][/sup][i][b][color=663e4d]Calculator[/color][/b][/i][sub][i][color=446aad] & Reporting App[/color][/i][/sub]'
+
+    
