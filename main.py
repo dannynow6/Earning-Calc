@@ -78,11 +78,21 @@ class EarningCalcApp(MDApp):
         sale_amount = float(self.root.ids.amt_charged.text)
         deposit_amount = float(self.root.ids.amt_deposit.text)
         total_sale = sale_amount + deposit_amount
+        with open("ec_app_data/user_settings.json", "r") as file:
+            userData = json.load(file)
+        sales_tax = float(userData["user_settings"]["sales_tax"])
+        shop_cut = float(userData["user_settings"]["shop_percent"])
+        shop_owed = sale_amount * shop_cut
+        est_tax = (sale_amount - shop_owed) * sales_tax
+        est_earnings = total_sale - (shop_owed + est_tax)
         self.sale_info.put(
             f"{customer_name}",
             sale=f"{sale_amount:.2f}",
             deposit=f"{deposit_amount:.2f}",
             total=f"{total_sale:.2f}",
+            shop_owed=f"{shop_owed:.2f}",
+            est_sales_tax=f"{est_tax:.2f}",
+            est_earnings=f"{est_earnings:.2f}",
         )
         self.root.ids.sale_name.text = ""
         self.root.ids.amt_charged.text = ""
