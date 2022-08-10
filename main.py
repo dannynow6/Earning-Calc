@@ -8,11 +8,9 @@ from kivymd.theming import ThemeManager
 from kivy.lang import Builder
 from kivy.core.text import LabelBase
 from kivy.uix.button import Button
-from kivy.uix.dropdown import DropDown
 from kivy.properties import ObjectProperty, NumericProperty
 from kivy.storage.jsonstore import JsonStore
 import json
-from kivymd.uix.menu import MDDropdownMenu
 from kivy.uix.gridlayout import GridLayout
 
 """  
@@ -38,6 +36,9 @@ class EarningCalcApp(MDApp):
     expense_cost = NumericProperty()
     expense_quantity = NumericProperty()
     current_expenses = {}
+    customer_name = ObjectProperty()
+    sale_amount = NumericProperty()
+    deposit_amount = NumericProperty()
 
     def clear_settings(self):
         self.root.ids.email_input.text = ""
@@ -46,6 +47,7 @@ class EarningCalcApp(MDApp):
 
     user_info = JsonStore("user_settings.json")
     expenses_data = JsonStore("expense_data.json")
+    sale_info = JsonStore("sale_info.json")
 
     def save_user_info(self):
         self.user_info.put(
@@ -62,26 +64,28 @@ class EarningCalcApp(MDApp):
         unit_cost = cost / quantity_per
         self.expenses_data.put(
             f"{new_exp}",
-            cost=self.root.ids.exp_cost.text,
-            quantity=self.root.ids.exp_quantity.text,
-            cost_per=("%.2f" % unit_cost),
+            cost=f"{cost:.2f}",
+            quantity=f"{quantity_per}",
+            cost_per=f"{unit_cost:.2f}",
         )
         self.root.ids.exp_name.text = ""
         self.root.ids.exp_quantity.text = ""
         self.root.ids.exp_cost.text = ""
 
-    """
-    def exp_list(self):
-        expenses_menu = DropDown()
-        with open("expense_data.json", "r") as file:
-            expData = json.load(file)
-        for i in expData.keys():
-            btn = Button(text=i, size_hint_y=None, height=40)
-            # btn.bind(on_release=lambda btn: expenses_menu.select(btn.text))
-            expenses_menu.add_widget(btn)
-        expenses_menu.open
-
-    """
+    def sale_info_save(self):
+        customer_name = self.root.ids.sale_name.text
+        sale_amount = float(self.root.ids.amt_charged.text)
+        deposit_amount = float(self.root.ids.amt_deposit.text)
+        total_sale = sale_amount + deposit_amount
+        self.sale_info.put(
+            f"{customer_name}",
+            sale=f"{sale_amount:.2f}",
+            deposit=f"{deposit_amount:.2f}",
+            total=f"{total_sale:.2f}",
+        )
+        self.root.ids.sale_name.text = ""
+        self.root.ids.amt_charged.text = ""
+        self.root.ids.amt_deposit.text = ""
 
 
 if __name__ == "__main__":

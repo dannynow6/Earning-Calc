@@ -86,10 +86,6 @@ ScreenManager:
                 RobotoButton: 
                     text: 'Add Expense' 
                     on_press: root.current = "ec_add_expense" 
-
-                RobotoButton: 
-                    text: 'Expenses' 
-                    on_press: root.current = 'ec_expenses' 
                    
                 RobotoButton: 
                     text: 'Sale Info' 
@@ -236,68 +232,6 @@ ScreenManager:
                     text: '[sup][color=446aad]Earning [/color][/sup][i][b][color=663e4d]Calculator[/color][/b][/i][sub][i][color=446aad] & Reporting App[/color][/i][/sub]'
 
     Screen:
-        name: 'ec_expenses'
-
-        BoxLayout:
-            orientation:'vertical' 
-            padding: 4
-            spacing: 2
-
-            GridLayout:
-                rows: 4
-                cols: 2
-                padding: 2
-                spacing: 2
-        #This should show lsit of expenses that can be included with current sale; 
-        #Give user option to input quantity for given sale used of each, then calcluate total 
-                SettingsLabel:
-                    text: 'Current Sale Expenses'
-                    
-                MDRaisedButton:
-                    id: exp_menu
-                    text: "Select Expenses"
-                    pos_hint: {"center_x": 0.75, "center_y": 0.75}
-                    
-                    
-
-                MDRaisedButton:
-                    text: 'Check Item'
-                    #on_release: toast(dropdown_item.current_item) 
-                    
-                UserTextInput:
-                    id: expense_cost 
-                    hint_text:'1.21'
-                
-                SettingsLabel:
-                    text: 'Quantity Used: '
-                    
-                UserTextInput:
-                    id: expense_quantity
-                    hint_text: '4'
-                
-                RobotoButton:
-                    id: _expense_exit
-                    text: "Save & Exit"
-                    on_press: root.current = "ec_main"
-                
-                RobotoButton:
-                    id: _add_expense
-                    text: "Add Expense to Current Sale" #Clear on save/add expense; maybe pop-up informing user of expense saved and info
-                    
-            BoxLayout: 
-                orientation: 'horizontal' 
-                height: 50
-                padding: 5
-                spacing: 2
-                size_hint_y: None 
-
-                EcLabel:
-                    text: '[color=3e4d66]~ For [b]Tattoo[/b] Artists ~[/color]'
-                    
-                EcLabel: 
-                    text: '[sup][color=446aad]Earning [/color][/sup][i][b][color=663e4d]Calculator[/color][/b][/i][sub][i][color=446aad] & Reporting App[/color][/i][/sub]' 
-
-    Screen:
         name: "ec_saleinfo" 
 
         BoxLayout:
@@ -310,6 +244,9 @@ ScreenManager:
                 cols: 2
                 padding: 2
                 spacing: 2
+                customer_name: sale_name
+                sale_amount: amt_charged 
+                deposit_amount: amt_deposit
 
                 SettingsLabel:
                     text: "Customer Name: "
@@ -333,11 +270,12 @@ ScreenManager:
                     hint_text:'75'
                 
                 RobotoButton:
-                    text: "Save & Exit"
+                    text: "Exit"
                     on_press: root.current = "ec_main"
                     
                 RobotoButton:
-                    text: "Reset Sale Info"
+                    text: "Save Sale Info"
+                    on_press: app.sale_info_save() 
                     
             BoxLayout: 
                 orientation: 'horizontal' 
