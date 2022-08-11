@@ -3,7 +3,6 @@
 from datetime import date
 from kivymd.app import MDApp
 from kivy.factory import Factory
-from kivymd.theming import ThemeManager
 
 from kivy.lang import Builder
 from kivy.core.text import LabelBase
@@ -11,15 +10,6 @@ from kivy.uix.button import Button
 from kivy.properties import ObjectProperty, NumericProperty
 from kivy.storage.jsonstore import JsonStore
 import json
-from kivy.uix.gridlayout import GridLayout
-
-"""  
-with open("expense_data.json", "r") as file:
-            expData = json.load(file)
-            self.items = [f"{i}" for i in expData.keys()]
-
-"""
-
 
 class EarningCalcApp(MDApp):
     def build(self):
