@@ -10,6 +10,7 @@ from kivy.uix.button import Button
 from kivy.properties import ObjectProperty, NumericProperty
 from kivy.storage.jsonstore import JsonStore
 import json
+import re
 
 
 class EarningCalcApp(MDApp):
@@ -44,6 +45,7 @@ class EarningCalcApp(MDApp):
     user_info = JsonStore("ec_settings/user_settings.json")
     expenses_data = JsonStore(f"ec_expenses/{now}.expense_data.json")
     sale_info = JsonStore(f"ec_sales/{now}.sale_info.json")
+    earning_reports = JsonStore(f"ec_reports/{now}.json")
 
     def save_user_info(self):
         self.user_info.put(
@@ -92,6 +94,11 @@ class EarningCalcApp(MDApp):
         self.root.ids.sale_name.text = ""
         self.root.ids.amt_charged.text = ""
         self.root.ids.amt_deposit.text = ""
+
+    """  
+    def gen_report(self):
+        Need to generate a report by matching text input dates from user input to dates of saved files to grab all files within range. Use regular expression module to match dates at beginning of file name.
+    """
 
 
 if __name__ == "__main__":
