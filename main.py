@@ -11,6 +11,7 @@ from kivy.properties import ObjectProperty, NumericProperty
 from kivy.storage.jsonstore import JsonStore
 import json
 
+
 class EarningCalcApp(MDApp):
     def build(self):
         self.theme_cls.primary_palette = "BlueGray"

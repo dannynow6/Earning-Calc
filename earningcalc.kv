@@ -303,18 +303,22 @@ ScreenManager:
                 cols: 2
                 padding: 2
                 spacing: 2
+                report_start: _start_date
+                report_end: _end_date 
 
                 SettingsLabel:
-                    text: "Sale Amount = +$"       
+                    text: "Enter Start Date"       
+
+                UserTextInput:
+                    id: _start_date
+                    hint_text: "YYYY-MM-DD" 
 
                 SettingsLabel:
-                    text: "Deposit Amount = +$" 
+                    text: 'Enter End Date'
 
-                SettingsLabel:
-                    text: 'Total Cost of Expenses = -$'
-
-                SettingsLabel: 
-                    text: "Estimated Sales Tax Owed = -$"
+                UserTextInput:
+                    id: _end_date
+                    hint_text: "YYYY-MM-DD"
                 
                 SettingsLabel:
                     text: "Amount Owed to Shop = -$"
@@ -329,7 +333,7 @@ ScreenManager:
                     text: "Total Earnings from Sale = +$"
                 
                 RobotoButton:
-                    text: "Save & Exit"
+                    text: "Exit"
                     on_press: root.current = "ec_main" 
                     
                 RobotoButton:
