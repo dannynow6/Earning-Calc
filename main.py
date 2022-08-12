@@ -37,9 +37,13 @@ class EarningCalcApp(MDApp):
         self.root.ids.sales_tax_input.text = ""
         self.root.ids.shop_percent_input.text = ""
 
-    user_info = JsonStore("ec_app_data/user_settings.json")
-    expenses_data = JsonStore(f"ec_app_data/{now}.expense_data.json")
-    sale_info = JsonStore(f"ec_app_data/{now}.sale_info.json")
+    def clear_dates(self):
+        self.root.ids._start_date.text = ""
+        self.root.ids._end_date.text = ""
+
+    user_info = JsonStore("ec_settings/user_settings.json")
+    expenses_data = JsonStore(f"ec_expenses/{now}.expense_data.json")
+    sale_info = JsonStore(f"ec_sales/{now}.sale_info.json")
 
     def save_user_info(self):
         self.user_info.put(
@@ -69,7 +73,7 @@ class EarningCalcApp(MDApp):
         sale_amount = float(self.root.ids.amt_charged.text)
         deposit_amount = float(self.root.ids.amt_deposit.text)
         total_sale = sale_amount + deposit_amount
-        with open("ec_app_data/user_settings.json", "r") as file:
+        with open("ec_settings/user_settings.json", "r") as file:
             userData = json.load(file)
         sales_tax = float(userData["user_settings"]["sales_tax"])
         shop_cut = float(userData["user_settings"]["shop_percent"])

@@ -321,23 +321,19 @@ ScreenManager:
                     hint_text: "YYYY-MM-DD"
                 
                 SettingsLabel:
-                    text: "Amount Owed to Shop = -$"
+                    text: "Generate Report for start-end"
                 
-                SettingsLabel:
-                    text: "Total Expenses & Costs = -$"
-                
-                SettingsLabel:
-                    text: "Total of Sale + Deposit Received = +$"
-                
-                SettingsLabel:
-                    text: "Total Earnings from Sale = +$"
+                RobotoButton:
+                    text: "Generate Report"
+                    #on_press: 
                 
                 RobotoButton:
                     text: "Exit"
                     on_press: root.current = "ec_main" 
                     
                 RobotoButton:
-                    text: "Generate Report"
+                    text: "Clear Dates"
+                    on_press: app.clear_dates() 
                     
             BoxLayout: 
                 orientation: 'horizontal' 
