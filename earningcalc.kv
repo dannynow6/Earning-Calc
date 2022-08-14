@@ -120,11 +120,18 @@ ScreenManager:
             spacing: 2
 
             GridLayout:
-                rows: 4
+                rows: 5
                 cols: 2
                 padding: 2
                 spacing: 2
 
+                SettingsLabel:
+                    text: "Enter your name/company name"
+
+                UserTextInput:
+                    id: name_input 
+                    hint_text: 'My LLC'
+                    
                 SettingsLabel: 
                     text: 'Enter Your Email Address:'
                     

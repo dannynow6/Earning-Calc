@@ -34,6 +34,7 @@ class EarningCalcApp(MDApp):
     deposit_amount = NumericProperty()
 
     def clear_settings(self):
+        self.root.ids.name_input.text = ""
         self.root.ids.email_input.text = ""
         self.root.ids.sales_tax_input.text = ""
         self.root.ids.shop_percent_input.text = ""
@@ -50,6 +51,7 @@ class EarningCalcApp(MDApp):
     def save_user_info(self):
         self.user_info.put(
             "user_settings",
+            name=self.root.ids.name_input.text,
             user_email=self.root.ids.email_input.text,
             sales_tax=self.root.ids.sales_tax_input.text,
             shop_percent=self.root.ids.shop_percent_input.text,
