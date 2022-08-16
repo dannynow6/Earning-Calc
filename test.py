@@ -33,12 +33,15 @@ for file in files_exp:
     if file[8:10] >= d_start and file[8:10] <= d_end:
         files_in_range.append(file)
 print(files_in_range)
-
+expense_cost = []
 for i in files_in_range:
     with open(f"ec_expenses/{i}", "r") as file:
         fileData = json.load(file)
-        for x in fileData.keys():
-            print(x)
+        for k in fileData.keys():
+            exp_cost = fileData[k]["cost"]
+            expense_cost.append(exp_cost)
+print(expense_cost)
+
 
 """
 y_start = start_date[:4]
