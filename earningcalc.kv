@@ -120,7 +120,7 @@ ScreenManager:
             spacing: 2
 
             GridLayout:
-                rows: 5
+                rows: 6
                 cols: 2
                 padding: 2
                 spacing: 2
@@ -157,14 +157,17 @@ ScreenManager:
                     #on_text_validate: app.save_shop_cut()
 
                 RobotoButton:
-                    text: "Save & Exit"
-                    on_press: root.current = 'ec_main'
+                    text: "Save"
                     on_press: app.save_user_info()
                     
                 RobotoButton:
                     text: "Clear User Settings"
                     height: root.height * 0.25
                     on_press: app.clear_settings()  
+                
+                RobotoButton:
+                    text: "Exit"
+                    on_press: root.current = 'ec_main'
                     
             BoxLayout: 
                 orientation: 'horizontal' 
