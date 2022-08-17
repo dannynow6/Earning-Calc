@@ -93,12 +93,15 @@ class EarningCalcApp(MDApp):
                     sale_amt_charged.append(amt_charged)
                     est_tax = float(saleData[k]["est_sales_tax"])
                     sale_est_tax.append(est_tax)
+        total_sales = float(sum(sale_amt_charged))
+        total_est_tax = float(sum(sale_est_tax))
+        total_exp = float(sum(exp_cost))
         # Create a formatted report - save temporarily in ec_reports directory
         self.earning_reports.put(
             "Earning Report",
-            total_sales=float(sum(sale_amt_charged)),
-            total_estimated_tax=float(sum(sale_est_tax)),
-            total_expenses=float(sum(exp_cost)),
+            total_sales=f"${total_sales:.2f}",
+            total_estimated_tax=f"${total_est_tax:.2f}",
+            total_expenses=f"${total_exp:.2f}",
         )
 
     def save_user_info(self):
