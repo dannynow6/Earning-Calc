@@ -2,11 +2,9 @@
 
 from datetime import date
 from kivymd.app import MDApp
-from kivy.factory import Factory
 
 from kivy.lang import Builder
 from kivy.core.text import LabelBase
-from kivy.uix.button import Button
 from kivy.properties import ObjectProperty, NumericProperty
 from kivy.storage.jsonstore import JsonStore
 import json
@@ -164,11 +162,6 @@ class EarningCalcApp(MDApp):
         self.root.ids.sale_name.text = ""
         self.root.ids.amt_charged.text = ""
         self.root.ids.amt_deposit.text = ""
-
-    """  
-    def gen_report(self):
-        Need to generate a report by matching text input dates from user input to dates of saved files to grab all files within range. Use regular expression module to match dates at beginning of file name.
-    """
 
 
 if __name__ == "__main__":
