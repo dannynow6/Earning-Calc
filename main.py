@@ -61,20 +61,26 @@ class EarningCalcApp(MDApp):
         files_exp = [f for f in os.listdir(path)]
         files_sale = [f for f in os.listdir(path1)]
         # Create empty lists for storing data temporarily
-        exp_in_range = []
-        sales_in_range = []
+        # Add relevant expense files to list
+        exp_in_range = [
+            file for file in files_exp if file[8:10] >= d_start and file[8:10] <= d_end
+        ]
+        # Add relevant sales files to list
+        sales_in_range = [
+            file for file in files_sale if file[8:10] >= d_start and file[8:10] <= d_end
+        ]
         exp_cost = []
         exp_name = []
         sale_name = []
         sale_est_tax = []
         sale_amt_charged = []
-        # Add relevant expense files and sales file to lists
+        """Add relevant expense files and sales file to lists
         for file in files_exp:
             if file[8:10] >= d_start and file[8:10] <= d_end:
                 exp_in_range.append(file)
         for file in files_sale:
             if file[8:10] >= d_start and file[8:10] <= d_end:
-                sales_in_range.append(file)
+                sales_in_range.append(file)"""
         # Access data from expense files
         for i in exp_in_range:
             with open(f"ec_expenses/{i}", "r") as file:

@@ -4,6 +4,21 @@ import re
 from pathlib import Path
 import os
 
+""" 
+Consider using following format for printing or creating earning report using data stored in multiple lists:
+ 
+        Access lists top_name, plays, and num to generate a list of most downloaded episodes in text file report. Access information starting with index 0 for each list and increment by 1 until info for all top episodes recorded. 
+        
+        i = 0
+        while i < best_eps:
+            file_object.write(
+                f"\n\t\t{i + 1}. {top_name[i]}, plays: {top_plays[i]}, Ep #: {top_num[i]}"
+            )
+            i += 1
+
+"""
+
+
 path = "./ec_expenses"
 path1 = "./ec_sales"
 
@@ -25,14 +40,15 @@ d_start = start_date[8:]
 y_end = end_date[:4]
 m_end = end_date[5:7]
 d_end = end_date[8:]
-files_in_range = []
+#files_in_range = []
 if y_start == y_end:
     if m_start == m_end:
         date_range = range(int(d_start), int(d_end) + 1)
 # Expense info reporting tests
-for file in files_exp:
+files_in_range = [file for file in files_exp if file[8:10] >= d_start and file[8:10] <= d_end]
+"""for file in files_exp:
     if file[8:10] >= d_start and file[8:10] <= d_end:
-        files_in_range.append(file)
+        files_in_range.append(file)"""
 print(files_in_range)
 expense_cost = []
 expense_name = []
