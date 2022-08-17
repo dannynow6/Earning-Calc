@@ -10,7 +10,7 @@ from kivy.uix.button import Button
 from kivy.properties import ObjectProperty, NumericProperty
 from kivy.storage.jsonstore import JsonStore
 import json
-import re
+import os
 
 
 class EarningCalcApp(MDApp):
@@ -47,6 +47,59 @@ class EarningCalcApp(MDApp):
     expenses_data = JsonStore(f"ec_expenses/{now}.expense_data.json")
     sale_info = JsonStore(f"ec_sales/{now}.sale_info.json")
     earning_reports = JsonStore(f"ec_reports/{now}.json")
+
+    def generate_report(self):
+        start_date = self.root.ids._start_date.text
+        end_date = self.root.ids._end_date.text
+        # From user input slice string to access just days specified
+        d_start = start_date[8:]
+        d_end = end_date[8:]
+        # Create path variables for directories to be accessed
+        path = "./ec_expenses"
+        path1 = "./ec_sales"
+        # Create lists of file names that fall within date range
+        files_exp = [f for f in os.listdir(path)]
+        files_sale = [f for f in os.listdir(path1)]
+        # Create empty lists for storing data temporarily
+        exp_in_range = []
+        sales_in_range = []
+        exp_cost = []
+        exp_name = []
+        sale_name = []
+        sale_est_tax = []
+        sale_amt_charged = []
+        # Add relevant expense files and sales file to lists
+        for file in files_exp:
+            if file[8:10] >= d_start and file[8:10] <= d_end:
+                exp_in_range.append(file)
+        for file in files_sale:
+            if file[8:10] >= d_start and file[8:10] <= d_end:
+                sales_in_range.append(file)
+        # Access data from expense files
+        for i in exp_in_range:
+            with open(f"ec_expenses/{i}", "r") as file:
+                fileData = json.load(file)
+                for k in fileData.keys():
+                    exp = float(fileData[k]["cost"])
+                    exp_name.append(k)
+                    exp_cost.append(exp)
+        # Access data from sales files
+        for i in sales_in_range:
+            with open(f"ec_sales/{i}", "r") as file:
+                saleData = json.load(file)
+                for k in saleData.keys():
+                    sale_name.append(k)
+                    amt_charged = float(saleData[k]["sale"])
+                    sale_amt_charged.append(amt_charged)
+                    est_tax = float(saleData[k]["est_sales_tax"])
+                    sale_est_tax.append(est_tax)
+        # Create a formatted report - save temporarily in ec_reports directory
+        self.earning_reports.put(
+            "Earning Report",
+            total_sales=float(sum(sale_amt_charged)),
+            total_estimated_tax=float(sum(sale_est_tax)),
+            total_expenses=float(sum(exp_cost)),
+        )
 
     def save_user_info(self):
         self.user_info.put(
