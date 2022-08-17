@@ -43,6 +43,7 @@ class EarningCalcApp(MDApp):
         self.root.ids._start_date.text = ""
         self.root.ids._end_date.text = ""
 
+    # Create set of variables for storing data in json format using JsonStore
     user_info = JsonStore("ec_settings/user_settings.json")
     expenses_data = JsonStore(f"ec_expenses/{now}.expense_data.json")
     sale_info = JsonStore(f"ec_sales/{now}.sale_info.json")
@@ -57,15 +58,15 @@ class EarningCalcApp(MDApp):
         # Create path variables for directories to be accessed
         path = "./ec_expenses"
         path1 = "./ec_sales"
-        # Create lists of file names that fall within date range
+        # Create lists of file names for expense files and sales files
         files_exp = [f for f in os.listdir(path)]
         files_sale = [f for f in os.listdir(path1)]
 
-        # Add relevant expense files to list
+        # Create list of expense files that are within specified date range
         exp_in_range = [
             file for file in files_exp if file[8:10] >= d_start and file[8:10] <= d_end
         ]
-        # Add relevant sales files to list
+        # Create list of sales files that are within specified date range
         sales_in_range = [
             file for file in files_sale if file[8:10] >= d_start and file[8:10] <= d_end
         ]
@@ -75,6 +76,8 @@ class EarningCalcApp(MDApp):
         sale_name = []
         sale_est_tax = []
         sale_amt_charged = []
+        sale_amt_for_shop = []
+        sale_deposit = []
 
         # Access data from expense files
         for i in exp_in_range:
@@ -94,15 +97,23 @@ class EarningCalcApp(MDApp):
                     sale_amt_charged.append(amt_charged)
                     est_tax = float(saleData[k]["est_sales_tax"])
                     sale_est_tax.append(est_tax)
+                    amt_owed_shop = float(saleData[k]["shop_owed"])
+                    sale_amt_for_shop.append(amt_owed_shop)
+                    deposit = float(saleData[k]["deposit"])
+                    sale_deposit.append(deposit)
         total_sales = float(sum(sale_amt_charged))
         total_est_tax = float(sum(sale_est_tax))
         total_exp = float(sum(exp_cost))
+        total_deposits = float(sum(sale_deposit))
+        total_owed_shop = float(sum(sale_amt_for_shop))
         # Create a formatted report - save temporarily in ec_reports directory
         self.earning_reports.put(
             "Earning Report",
             total_sales=f"${total_sales:.2f}",
             total_estimated_tax=f"${total_est_tax:.2f}",
             total_expenses=f"${total_exp:.2f}",
+            total_shop_cut=f"${total_owed_shop:.2f}",
+            total_deposit_amt=f"${total_deposits:.2f}",
         )
 
     def save_user_info(self):
