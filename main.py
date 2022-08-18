@@ -59,7 +59,6 @@ class EarningCalcApp(MDApp):
         # Create lists of file names for expense files and sales files
         files_exp = [f for f in os.listdir(path)]
         files_sale = [f for f in os.listdir(path1)]
-
         # Create list of expense files that are within specified date range
         exp_in_range = [
             file for file in files_exp if file[8:10] >= d_start and file[8:10] <= d_end
@@ -104,7 +103,10 @@ class EarningCalcApp(MDApp):
         total_exp = float(sum(exp_cost))
         total_deposits = float(sum(sale_deposit))
         total_owed_shop = float(sum(sale_amt_for_shop))
-        # Create a formatted report - save temporarily in ec_reports directory
+        total_est_earnings = (total_sales + total_deposits) - (
+            total_est_tax + total_exp + total_owed_shop
+        )
+        # Create a json file storing key data from report
         self.earning_reports.put(
             "Earning Report",
             total_sales=f"${total_sales:.2f}",
@@ -113,6 +115,14 @@ class EarningCalcApp(MDApp):
             total_shop_cut=f"${total_owed_shop:.2f}",
             total_deposit_amt=f"${total_deposits:.2f}",
         )
+        # Create a text file format to access for earning report
+        current_date = date.today()
+        now = current_date.strftime("%Y-%m-%d")
+        ec_report_file = f"ec_reports/{now}.txt"
+        with open(ec_report_file, "w") as file_object:
+            file_object.write(
+                f"Earning Report: {now}\n\n\tTotal Sales: ${total_sales:.2f}\n\tTotal Deposits Amount: ${total_deposits:.2f}\n\tTotal Estimated Sales Tax Owed: ${total_est_tax:.2f}\n\tTotal Cost of Expenses Purchased: ${total_exp:.2f}\n\tTotal Amount Owed to Shop: ${total_owed_shop:.2f}\n\tTotal Estimated Earnings: ${total_est_earnings:.2f}"
+            )
 
     def save_user_info(self):
         self.user_info.put(
