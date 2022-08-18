@@ -1,8 +1,9 @@
-Earning Report: 2022-08-18
+Earning Report for 2022-08-14 - 2022-08-16:
+	Created on 2022-08-18
 
-	Total Sales: $4665.00
-	Total Deposits Amount: $275.00
-	Total Estimated Sales Tax Owed: $205.15
-	Total Cost of Expenses Purchased: $1237.36
-	Total Amount Owed to Shop: $1866.00
-	Total Estimated Earnings: $1631.49
+	Total Sales: $3780.00
+	Total Deposits Amount: $340.00
+	Total Estimated Sales Tax Owed: $173.06
+	Total Cost of Expenses Purchased: $1540.25
+	Total Amount Owed to Shop: $1512.00
+	Total Estimated Earnings: $894.69

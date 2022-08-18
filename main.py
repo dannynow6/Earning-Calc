@@ -113,7 +113,7 @@ class EarningCalcApp(MDApp):
         ec_report_file = f"ec_reports/{now}.txt"
         with open(ec_report_file, "w") as file_object:
             file_object.write(
-                f"Earning Report: {now}\n\n\tTotal Sales: ${total_sales:.2f}\n\tTotal Deposits Amount: ${total_deposits:.2f}\n\tTotal Estimated Sales Tax Owed: ${total_est_tax:.2f}\n\tTotal Cost of Expenses Purchased: ${total_exp:.2f}\n\tTotal Amount Owed to Shop: ${total_owed_shop:.2f}\n\tTotal Estimated Earnings: ${total_est_earnings:.2f}"
+                f"Earning Report for {start_date} - {end_date}:\n\tCreated on {now}\n\n\tTotal Sales: ${total_sales:.2f}\n\tTotal Deposits Amount: ${total_deposits:.2f}\n\tTotal Estimated Sales Tax Owed: ${total_est_tax:.2f}\n\tTotal Cost of Expenses Purchased: ${total_exp:.2f}\n\tTotal Amount Owed to Shop: ${total_owed_shop:.2f}\n\tTotal Estimated Earnings: ${total_est_earnings:.2f}"
             )
 
     # Save user info from settings
