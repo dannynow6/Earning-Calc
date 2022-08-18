@@ -5,7 +5,6 @@ from kivymd.app import MDApp
 
 from kivy.lang import Builder
 from kivy.core.text import LabelBase
-from kivy.properties import ObjectProperty, NumericProperty
 from kivy.storage.jsonstore import JsonStore
 import json
 import os
@@ -20,23 +19,15 @@ class EarningCalcApp(MDApp):
 
     current_date = date.today()
     now = current_date.strftime("%Y-%m-%d")
-    user_email = ObjectProperty()
-    sales_tax = NumericProperty()
-    shop_percent = NumericProperty()
-    expense_name = ObjectProperty()
-    expense_cost = NumericProperty()
-    expense_quantity = NumericProperty()
-    current_expenses = {}
-    customer_name = ObjectProperty()
-    sale_amount = NumericProperty()
-    deposit_amount = NumericProperty()
 
+    # Clears user input and replaces it with default hint-text
     def clear_settings(self):
         self.root.ids.name_input.text = ""
         self.root.ids.email_input.text = ""
         self.root.ids.sales_tax_input.text = ""
         self.root.ids.shop_percent_input.text = ""
 
+    # Clear start/end date fields used to generate reports
     def clear_dates(self):
         self.root.ids._start_date.text = ""
         self.root.ids._end_date.text = ""
@@ -47,6 +38,7 @@ class EarningCalcApp(MDApp):
     sale_info = JsonStore(f"ec_sales/{now}.sale_info.json")
     earning_reports = JsonStore(f"ec_reports/{now}.json")
 
+    # Generate an Earning Report for specified date-range
     def generate_report(self):
         start_date = self.root.ids._start_date.text
         end_date = self.root.ids._end_date.text
@@ -124,6 +116,7 @@ class EarningCalcApp(MDApp):
                 f"Earning Report: {now}\n\n\tTotal Sales: ${total_sales:.2f}\n\tTotal Deposits Amount: ${total_deposits:.2f}\n\tTotal Estimated Sales Tax Owed: ${total_est_tax:.2f}\n\tTotal Cost of Expenses Purchased: ${total_exp:.2f}\n\tTotal Amount Owed to Shop: ${total_owed_shop:.2f}\n\tTotal Estimated Earnings: ${total_est_earnings:.2f}"
             )
 
+    # Save user info from settings
     def save_user_info(self):
         self.user_info.put(
             "user_settings",
