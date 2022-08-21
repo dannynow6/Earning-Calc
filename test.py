@@ -4,6 +4,22 @@ import re
 from pathlib import Path
 import os
 
+def user_info_load(self):
+        # check if user-settings file exists and load info in relevant text areas
+        file = open("ec_settings/user_settings.json", "r")
+        try:
+            userData = json.load(file)
+            self.root.ids.name_input.text = userData["user_settings"]["name"]
+            self.root.ids.email_input.text = userData["user_settings"]["user_email"]
+            self.root.ids.sales_tax_input.text = userData["user_settings"]["sales_tax"]
+            self.root.ids.shop_percent.text = userData["user_settings"]["shop_percent"]
+        except FileNotFoundError:
+            self.root.ids.name_input.text = ""
+            self.root.ids.email_input.text = ""
+            self.root.ids.sales_tax_input.text = ""
+            self.root.ids.shop_percent_input.text = ""
+
+
 """ 
 Consider using following format for printing or creating earning report using data stored in multiple lists:
  
@@ -17,6 +33,23 @@ Consider using following format for printing or creating earning report using da
             i += 1
 
 """
+
+try:
+            with open("ec_settings/user_settings.json", "r") as file:
+                userData = json.load(file)
+                self.root.ids.name_input.text = userData["user_settings"]["name"]
+                self.root.ids.email_input.text = userData["user_settings"]["user_email"]
+                self.root.ids.sales_tax_input.text = userData["user_settings"][
+                    "sales_tax"
+                ]
+                self.root.ids.shop_percent.text = userData["user_settings"][
+                    "shop_percent"
+                ]
+        except FileNotFoundError:
+            self.root.ids.name_input.text = ""
+            self.root.ids.email_input.text = ""
+            self.root.ids.sales_tax_input.text = ""
+            self.root.ids.shop_percent_input.text = ""
 
 
 path = "./ec_expenses"
