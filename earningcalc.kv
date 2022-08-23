@@ -1,6 +1,13 @@
 #:kivy 2.1.0
 # File name: earningcalc.kv 
 
+<BottomBLayout@BoxLayout>:
+    orientation: 'horizontal' 
+    height: 50
+    padding: 5
+    spacing: 2
+    size_hint: (1, None)
+
 <BackgroundColor@Widget>:
     background_color: (0.06, 0.1, 0.15, 1)
     canvas.before:
@@ -93,12 +100,7 @@ ScreenManager:
                     text: 'Calc & Report'
                     on_press: root.current = 'ec_calc'
                     
-            BoxLayout: 
-                orientation: 'horizontal' 
-                height: 50
-                padding: 5
-                spacing: 2
-                size_hint: (1, None) 
+            BottomBLayout: 
 
                 EcLabel:
                     text: '[color=3e4d66]~ For [b]Tattoo[/b] Artists ~[/color]'
@@ -164,12 +166,7 @@ ScreenManager:
                     text: "Exit"
                     on_press: root.current = 'ec_main'
                     
-            BoxLayout: 
-                orientation: 'horizontal' 
-                height: 50
-                padding: 5
-                spacing: 2
-                size_hint: (1, None) 
+            BottomBLayout:
 
                 EcLabel:
                     text: '[color=3e4d66]~ For [b]Tattoo[/b] Artists ~[/color]'
@@ -223,12 +220,7 @@ ScreenManager:
                     text: "Save Expense Info" 
                     on_press: app.exp_save() 
 
-            BoxLayout: 
-                orientation: 'horizontal' 
-                height: 50
-                padding: 5
-                size_hint: (1, None) 
-                spacing: 2
+            BottomBLayout:
 
                 EcLabel:
                     text: '[color=3e4d66]~ For [b]Tattoo[/b] Artists ~[/color]'
@@ -282,12 +274,7 @@ ScreenManager:
                     text: "Save Sale Info"
                     on_press: app.sale_info_save() 
                     
-            BoxLayout: 
-                orientation: 'horizontal' 
-                height: 50
-                padding: 5
-                size_hint: (1, None) 
-                spacing: 2
+            BottomBLayout:
 
                 EcLabel:
                     text: '[color=3e4d66]~ For [b]Tattoo[/b] Artists ~[/color]'
@@ -340,12 +327,7 @@ ScreenManager:
                     text: "Clear Dates"
                     on_press: app.clear_dates() 
                     
-            BoxLayout: 
-                orientation: 'horizontal' 
-                height: 50
-                padding: 5
-                size_hint: (1, None) 
-                spacing: 2
+            BottomBLayout:
 
                 EcLabel:
                     text: '[color=3e4d66]~ For [b]Tattoo[/b] Artists ~[/color]'
