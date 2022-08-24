@@ -1,0 +1,40 @@
+MDBottomNavigationItem:
+            name: 'screen 2'
+            text: "Esp's Top Episodes"
+            icon: 'alpha-e-box'
+
+            MDBoxLayout: 
+                id: top_ep 
+                orientation: 'vertical' 
+                
+            MDRaisedButton:
+                text: "press for esp's top episodes"
+                on_press: app.top_episodes() 
+
+        MDBottomNavigationItem:
+            name: 'screen 3'
+            text: 'Info'
+            icon: 'information-variant'
+            
+            MDRaisedButton:
+                text: "Press for Total Episodes"
+                on_press: app.esp_data_report() 
+
+            MDLabel:
+                id: tot_eps
+                text: ""
+                halign: 'center'
+        
+        MDBottomNavigationItem:
+            name: 'screen 4'
+            text: 'Connect & Listen'
+            icon: 'headphones'
+
+            MDBoxLayout:
+                id: rec_eps
+                orientation: 'vertical' 
+
+            MDRaisedButton:
+                text: "Get an Episode Recommendation"
+                on_press: app.recommended_eps() 
+            
